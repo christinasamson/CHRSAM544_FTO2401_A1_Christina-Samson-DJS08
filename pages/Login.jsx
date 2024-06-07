@@ -2,7 +2,6 @@ import React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { loginUser } from "../api"
 
-
 export default function Login() {
     const [loginFormData, setLoginFormData] = React.useState({ email: "", password: "" })
     const [status, setStatus] = React.useState("idle")
@@ -17,7 +16,8 @@ export default function Login() {
         loginUser(loginFormData)
             .then(data => {
                 setError(null)
-                navigate("/host")
+                localStorage.setItem("loggedin", true)
+                navigate("/host", { replace: true })
             })
             .catch(err => {
                 setError(err)
